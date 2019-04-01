@@ -1,3 +1,3 @@
-export default () => {
-  alert('It works!');
-}
+import Palette from './palette';
+
+export default Palette;

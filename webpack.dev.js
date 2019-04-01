@@ -16,6 +16,7 @@ module.exports = merge(common, {
       cleanOnceBeforeBuildPatterns: ['*', '!src']
     }),
     new HtmlWebpackPlugin({
+      template: './examples/src/index.html',
       title: 'template'
     })
   ]
