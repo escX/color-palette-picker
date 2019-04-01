@@ -1,2 +1,2 @@
 # palette
-rgb color palette picker
+color palette picker

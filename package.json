@@ -1,7 +1,7 @@
 {
   "name": "palette",
   "version": "1.0.0",
-  "description": "rgb color palette picker",
+  "description": "color palette picker",
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open --config webpack.dev.js",
@@ -14,7 +14,6 @@
     "url": "git+https://github.com/escX/palette.git"
   },
   "keywords": [
-    "rgb",
     "palette",
     "color-picker"
   ],

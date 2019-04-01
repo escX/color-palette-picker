@@ -32,7 +32,7 @@ export default class Palette {
 
   }
 
-  set({h, s, l}) {
+  set ({h, s, l}) {
 
   }
 
