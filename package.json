@@ -1,0 +1,39 @@
+{
+  "name": "palette",
+  "version": "1.0.0",
+  "description": "rgb color palette picker",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --open --config webpack.dev.js",
+    "build:ex": "webpack --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "release": "npm run build:ex && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/escX/palette.git"
+  },
+  "keywords": [
+    "rgb",
+    "palette",
+    "color-picker"
+  ],
+  "author": "escX",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/escX/palette/issues"
+  },
+  "homepage": "https://github.com/escX/palette#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "babel-loader": "^8.0.5",
+    "change-case": "^3.1.0",
+    "clean-webpack-plugin": "^2.0.1",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.2.1",
+    "webpack-merge": "^4.2.1"
+  }
+}
