@@ -6,18 +6,22 @@ let paletteBoxElement = null;
 export default class Palette {
   constructor({
     element = null,
-    colorRange = Function(),
+    className = '',
     hsl = {h: 0, s: 0, l: 0},
     xRatio = 3,
-    yRatio = 2
+    yRatio = 2,
+    rangePos = 'bottom',
+    colorRange = Function(),
   } = Object.create(null)) {
     this.element = getHTMLElement.call(this, element);
-    this.colorRange = colorRange;
+    this.className = className;
     this.h = hsl.h;
     this.s = hsl.s;
     this.l = hsl.l;
     this.xRatio = xRatio;
     this.yRatio = yRatio;
+    this.rangePos = rangePos;
+    this.colorRange = colorRange;
   }
 
   create () {

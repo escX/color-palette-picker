@@ -7,7 +7,7 @@ const instance = new Palette({
     s: 50,
     l: 50
   },
-  xRatio: 2,
+  xRatio: 3,
   yRatio: 2
 });
 

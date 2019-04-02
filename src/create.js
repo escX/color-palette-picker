@@ -1,12 +1,20 @@
 const SYSTEMSIZE = 101;
 
-const createElement = function ({nodeType, style}) {
+const createElement = function ({nodeType, style, attribute}) {
   const element = document.createElement(nodeType);
+
   if (style instanceof Object) {
     for (let i in style) {
       element.style[i] = style[i];
     }
   }
+
+  if (attribute instanceof Object) {
+    for (let i in attribute) {
+      element.setAttribute(i, attribute[i]);
+    }
+  }
+
   return element;
 }
 
@@ -19,6 +27,7 @@ const getLineColor = function ({lineIndex, context}) {
     endS,
     endL
   ] = [context.h, 0, (SYSTEMSIZE - 1) - lineIndex, context.h, SYSTEMSIZE - 1, (SYSTEMSIZE - 1) - lineIndex];
+
   return {
     beginColor: `hsl(${beginH} ${beginS}% ${beginL}%)`,
     endColor: `hsl(${endH} ${endS}% ${endL}%)`
@@ -38,15 +47,19 @@ const createLine = function ({lineIndex, context}) {
       background: `linear-gradient(to right, ${getLineColor({lineIndex, context}).beginColor}, ${getLineColor({lineIndex, context}).endColor})`
     }
   });
+
   return line;
 }
 
-const createPanel = function (context) {
-  const palettePanelElement = createElement({
+const createSLRange = function (context) {
+  const SLRange = createElement({
     nodeType: 'div',
     style: {
       width: `${SYSTEMSIZE * context.xRatio}px`,
       height: `${SYSTEMSIZE * context.yRatio}px`
+    },
+    attribute: {
+      class: 'sl-range'
     }
   });
 
@@ -55,29 +68,51 @@ const createPanel = function (context) {
       lineIndex: i,
       context
     });
-    palettePanelElement.appendChild(lineElement);
+    SLRange.appendChild(lineElement);
   }
 
-  return palettePanelElement;
+  return SLRange;
+}
+
+const createHRange = function (context) {
+  const HRange = createElement({
+    nodeType: 'div',
+    style: {
+
+    },
+    attribute: {
+      class: 'h-range'
+    }
+  });
+
+  return HRange;
 }
 
 const createBox = function(context) {
-  const paletteBoxElement = createElement({
-    nodeType: 'div'
+  const paletteBox = createElement({
+    nodeType: 'div',
+    style: {
+      width: `${SYSTEMSIZE * context.xRatio}px`,
+      boxShadow: '0 0 5px 0'
+    },
+    attribute: {
+      class: 'palette-box'
+    }
   });
 
-  const palettePanelElement = createPanel(context);
+  const SLRange = createSLRange(context);
+  const HRange = createHRange(context);
+  paletteBox.appendChild(SLRange);
+  paletteBox.appendChild(HRange);
 
-  paletteBoxElement.appendChild(palettePanelElement);
-
-  return paletteBoxElement;
+  return paletteBox;
 }
 
 export default function () {
   const context = this;
-  const paletteBoxElement = createBox(context);
+  const paletteBox = createBox(context);
 
-  context.element.appendChild(paletteBoxElement);
+  context.element.appendChild(paletteBox);
 
-  return paletteBoxElement;
+  return paletteBox;
 }
