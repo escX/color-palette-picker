@@ -1,4 +1,8 @@
-const SYSTEMSIZE = 101;
+import {LSIZE} from './utils';
+import {lineStyle, SLRangeStyle, HRangeStyle} from './style';
+
+const RANGE_TYPE_H = 'H';
+const RANGE_TYPE_SL = 'SL';
 
 const createElement = function ({nodeType, style, attribute}) {
   const element = document.createElement(nodeType);
@@ -18,34 +22,10 @@ const createElement = function ({nodeType, style, attribute}) {
   return element;
 }
 
-const getLineColor = function ({lineIndex, context}) {
-  const [
-    beginH,
-    beginS,
-    beginL,
-    endH,
-    endS,
-    endL
-  ] = [context.h, 0, (SYSTEMSIZE - 1) - lineIndex, context.h, SYSTEMSIZE - 1, (SYSTEMSIZE - 1) - lineIndex];
-
-  return {
-    beginColor: `hsl(${beginH} ${beginS}% ${beginL}%)`,
-    endColor: `hsl(${endH} ${endS}% ${endL}%)`
-  };
-}
-
-const createLine = function ({lineIndex, context}) {
+const createLine = function ({context, lineIndex}) {
   const line = createElement({
     nodeType: 'div',
-    style: {
-      width: `${SYSTEMSIZE * context.xRatio}px`,
-      height: `${context.yRatio}px`,
-      margin: '0',
-      padding: '0',
-      border: 'none',
-      outline: 'none',
-      background: `linear-gradient(to right, ${getLineColor({lineIndex, context}).beginColor}, ${getLineColor({lineIndex, context}).endColor})`
-    }
+    style: lineStyle({context, lineIndex})
   });
 
   return line;
@@ -54,19 +34,16 @@ const createLine = function ({lineIndex, context}) {
 const createSLRange = function (context) {
   const SLRange = createElement({
     nodeType: 'div',
-    style: {
-      width: `${SYSTEMSIZE * context.xRatio}px`,
-      height: `${SYSTEMSIZE * context.yRatio}px`
-    },
+    style: SLRangeStyle(context),
     attribute: {
-      class: 'sl-range'
+      class: context.SLRangeName
     }
   });
 
-  for (let i = 0; i < SYSTEMSIZE; i += 1) {
+  for (let lineIndex = 0; lineIndex < LSIZE; lineIndex += 1) {
     const lineElement = createLine({
-      lineIndex: i,
-      context
+      context,
+      lineIndex
     });
     SLRange.appendChild(lineElement);
   }
@@ -77,42 +54,26 @@ const createSLRange = function (context) {
 const createHRange = function (context) {
   const HRange = createElement({
     nodeType: 'div',
-    style: {
-
-    },
+    style: HRangeStyle(context),
     attribute: {
-      class: 'h-range'
+      class: context.HRangeName
     }
   });
 
   return HRange;
 }
 
-const createBox = function(context) {
-  const paletteBox = createElement({
-    nodeType: 'div',
-    style: {
-      width: `${SYSTEMSIZE * context.xRatio}px`,
-      boxShadow: '0 0 5px 0'
-    },
-    attribute: {
-      class: 'palette-box'
-    }
-  });
+const createRange = function({context, type}) {
+  if (type === RANGE_TYPE_H) {
+    return createHRange(context);
+  } else if (type === RANGE_TYPE_SL) {
+    return createSLRange(context);
+  }
 
-  const SLRange = createSLRange(context);
-  const HRange = createHRange(context);
-  paletteBox.appendChild(SLRange);
-  paletteBox.appendChild(HRange);
-
-  return paletteBox;
+  return false;
 }
 
-export default function () {
+export default function (type) {
   const context = this;
-  const paletteBox = createBox(context);
-
-  context.element.appendChild(paletteBox);
-
-  return paletteBox;
+  return createRange({context, type});
 }
