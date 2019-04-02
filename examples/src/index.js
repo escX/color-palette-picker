@@ -6,9 +6,9 @@ const instance = new Palette({
     s: 50,
     l: 50
   },
-  zWidth: '20px',
-  zHeight: '100px',
-  horizontal: false,
+  zWidth: 190,
+  zHeight: 20,
+  horizontal: true,
   xRatio: 3,
   yRatio: 1.8
 });

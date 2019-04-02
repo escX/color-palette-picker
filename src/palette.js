@@ -7,9 +7,10 @@ export default class Palette {
     HRangeName = 'h-range',
     xRatio = 3,
     yRatio = 2,
-    zWidth = '100px',
-    zHeight = '10px',
+    zWidth = 100,
+    zHeight = 10,
     horizontal = true,
+    radius = 6,
     colorRange = Function(),
   } = Object.create(null)) {
     this.h = hsl.h;
@@ -22,6 +23,7 @@ export default class Palette {
     this.zWidth = zWidth;
     this.zHeight = zHeight;
     this.horizontal = horizontal;
+    this.radius = radius;
     this.colorRange = colorRange;
   }
 
