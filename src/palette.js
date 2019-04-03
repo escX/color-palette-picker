@@ -42,8 +42,4 @@ export default class Palette {
   set ({h, s, l}) {
 
   }
-
-  reset () {
-
-  }
 }
