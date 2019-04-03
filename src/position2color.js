@@ -1,7 +1,7 @@
-export const getHColor = function () {
+export const getBarColor = function () {
 
 }
 
-export const getSLColor = function () {
+export const getPanelColor = function () {
 
 }

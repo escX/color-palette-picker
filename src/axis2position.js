@@ -1,16 +1,16 @@
-import {getHPointRadius} from './utils';
+import {getBarPointRadius} from './utils';
 
-export const getHPosition = function ({context, x, y}) {
-  const radius = getHPointRadius(context);
+export const getBarPosition = function ({context, x, y}) {
+  const barPointRadius = getBarPointRadius(context);
   return {
-    top: y - radius,
-    left: x - radius
+    top: y - barPointRadius,
+    left: x - barPointRadius
   }
 }
 
-export const getSLPosition = function ({context, x, y}) {
+export const getPanelPosition = function ({context, x, y}) {
   return {
-    top: y - context.radius,
-    left: x - context.radius
+    top: y - context.panelPointRadius,
+    left: x - context.panelPointRadius
   }
 }

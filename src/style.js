@@ -1,4 +1,4 @@
-import {H_SIZE, S_SIZE, L_SIZE, getHPointRadius} from './utils';
+import {H_SIZE, S_SIZE, L_SIZE, getBarPointRadius} from './utils';
 
 const getLineColor = function ({context, lineIndex}) {
   const colors = [];
@@ -9,7 +9,7 @@ const getLineColor = function ({context, lineIndex}) {
   return colors;
 }
 
-const getGradientColors = function () {
+const getBarColor = function () {
   const colors = [];
   for (let i = 0; i < H_SIZE; i += 1) {
     colors.push(`hsl(${i}, 100%, 50%)`);
@@ -21,8 +21,8 @@ const getGradientColors = function () {
 export const lineStyle = function ({context, lineIndex}) {
   const lineColor = getLineColor({context, lineIndex}).join(',');
   return {
-    width: `${S_SIZE * context.xRatio}px`,
-    height: `${context.yRatio}px`,
+    width: `${context.panelWidth}px`,
+    height: `${context.panelHeight / L_SIZE}px`,
     margin: '0',
     padding: '0',
     border: 'none',
@@ -31,35 +31,35 @@ export const lineStyle = function ({context, lineIndex}) {
   }
 }
 
-export const SLRangeStyle = function (context) {
+export const panelStyle = function (context) {
   return {
-    width: `${S_SIZE * context.xRatio}px`,
-    height: `${L_SIZE * context.yRatio}px`,
+    width: `${context.panelWidth}px`,
+    height: `${context.panelHeight}px`,
     position: 'relative'
   }
 }
 
-export const HRangeStyle = function (context) {
-  const gradientColors = getGradientColors().join(',');
+export const barStyle = function (context) {
+  const barColor = getBarColor().join(',');
   return {
-    width: `${context.zWidth}px`,
-    height: `${context.zHeight}px`,
-    background: context.horizontal ? `linear-gradient(to right, ${gradientColors})` : `linear-gradient(${gradientColors})`
+    width: `${context.barWidth}px`,
+    height: `${context.barHeight}px`,
+    background: context.barHorizontal ? `linear-gradient(to right, ${barColor})` : `linear-gradient(${barColor})`
   }
 }
 
-export const HRangeWrapStyle = function (context) {
+export const barWrapStyle = function (context) {
   return {
-    width: `${context.zWidth}px`,
-    height: `${context.zHeight}px`,
+    width: `${context.barWidth}px`,
+    height: `${context.barHeight}px`,
     position: 'relative'
   }
 }
 
-export const SLPointStyle = function (context) {
+export const panelPointStyle = function (context) {
   return {
-    width: `${context.radius * 2}px`,
-    height: `${context.radius * 2}px`,
+    width: `${context.panelPointRadius * 2}px`,
+    height: `${context.panelPointRadius * 2}px`,
     borderRadius: '50%',
     backgroundColor: 'transparent',
     border: '1px solid #fff',
@@ -72,10 +72,10 @@ export const SLPointStyle = function (context) {
   }
 }
 
-export const HPointStyle = function (context) {
+export const barPointStyle = function (context) {
   return {
-    width: `${getHPointRadius(context) * 2}px`,
-    height: `${getHPointRadius(context) * 2}px`,
+    width: `${getBarPointRadius(context) * 2}px`,
+    height: `${getBarPointRadius(context) * 2}px`,
     borderRadius: '50%',
     backgroundColor: '#fff',
     boxShadow: '0 0 2px 0 #000',

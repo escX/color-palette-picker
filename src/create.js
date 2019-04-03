@@ -1,8 +1,8 @@
 import {L_SIZE} from './utils';
-import {lineStyle, SLRangeStyle, HRangeStyle, HRangeWrapStyle, SLPointStyle, HPointStyle} from './style';
+import {lineStyle, panelStyle, barStyle, barWrapStyle, panelPointStyle, barPointStyle} from './style';
 
-const RANGE_TYPE_H = 'H';
-const RANGE_TYPE_SL = 'SL';
+const RANGE_TYPE_BAR = 'bar';
+const RANGE_TYPE_PANEL = 'panel';
 
 const createElement = function ({nodeType, style, attribute}) {
   const element = document.createElement(nodeType);
@@ -29,71 +29,71 @@ const createLine = function ({context, lineIndex}) {
   });
 }
 
-const createSLPoint = function (context) {
+const createPanelPoint = function (context) {
   return createElement({
     nodeType: 'div',
-    style: SLPointStyle(context)
+    style: panelPointStyle(context)
   })
 }
 
-const createHPoint = function (context) {
+const createBarPoint = function (context) {
   return createElement({
     nodeType: 'div',
-    style: HPointStyle(context)
+    style: barPointStyle(context)
   })
 }
 
-const createSLRange = function (context) {
-  const SLRange = createElement({
+const createPanel = function (context) {
+  const panel = createElement({
     nodeType: 'div',
-    style: SLRangeStyle(context),
+    style: panelStyle(context),
     attribute: {
-      class: context.SLRangeName
+      class: context.panelName
     }
   });
 
-  const SLPoint = createSLPoint(context);
+  const panelPoint = createPanelPoint(context);
 
   for (let lineIndex = 0; lineIndex < L_SIZE; lineIndex += 1) {
-    const lineElement = createLine({
+    const line = createLine({
       context,
       lineIndex
     });
-    SLRange.appendChild(lineElement);
+    panel.appendChild(line);
   }
 
-  SLRange.appendChild(SLPoint);
+  panel.appendChild(panelPoint);
 
-  return SLRange;
+  return panel;
 }
 
-const createHRange = function (context) {
-  const HRange = createElement({
+const createBar = function (context) {
+  const bar = createElement({
     nodeType: 'div',
-    style: HRangeStyle(context)
+    style: barStyle(context)
   });
 
-  const HPoint = createHPoint(context);
+  const barPoint = createBarPoint(context);
 
-  const wrap = createElement({
+  const barWrap = createElement({
     nodeType: 'div',
-    style: HRangeWrapStyle(context),
+    style: barWrapStyle(context),
     attribute: {
-      class: context.HRangeName
+      class: context.barName
     }
   });
 
-  wrap.appendChild(HRange);
-  wrap.appendChild(HPoint);
+  barWrap.appendChild(bar);
+  barWrap.appendChild(barPoint);
 
-  return wrap;
+  return barWrap;
 }
 
 const createRange = function ({context, type}) {
-  if (type === RANGE_TYPE_H) {
-    return createHRange(context);
-  } else if (type === RANGE_TYPE_SL) {
-    return createSLRange(context);
+  if (type === RANGE_TYPE_BAR) {
+    return createBar(context);
+  } else if (type === RANGE_TYPE_PANEL) {
+    return createPanel(context);
   }
 
   return false;
@@ -101,5 +101,6 @@ const createRange = function ({context, type}) {
 
 export default function (type) {
   const context = this;
+
   return createRange({context, type});
 }

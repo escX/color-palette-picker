@@ -1,7 +1,7 @@
-export const getHAxis = function () {
+export const getBarAxis = function () {
 
 }
 
-export const getSLAxis = function () {
+export const getPanelAxis = function () {
 
 }
