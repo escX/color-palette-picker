@@ -6,15 +6,13 @@ const instance = new Palette({
     s: 50,
     l: 50
   },
-  zWidth: 190,
-  zHeight: 20,
-  horizontal: true,
-  xRatio: 3,
-  yRatio: 1.8
+  barWidth: 190,
+  barHeight: 20,
+  barHorizontal: true
 });
 
-const slElement = instance.create('SL');
-const hElement = instance.create('H');
+const panel = instance.create('panel');
+const bar = instance.create('bar');
 
-palette.appendChild(slElement)
-palette.appendChild(hElement)
+palette.appendChild(panel)
+palette.appendChild(bar)
