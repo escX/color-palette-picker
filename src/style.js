@@ -1,11 +1,13 @@
-import {H_SIZE, S_SIZE, L_SIZE, getBarPointRadius} from './utils';
+import {H_SIZE, S_SIZE, L_SIZE, pointColor, getBarPointRadius} from './utils';
+import {barColorToPosition, panelColorToPosition} from './color2position';
 
-const getLineColor = function ({context, lineIndex}) {
+export const getLineColor = function (lineIndex) {
   const colors = [];
   for (let i = 0; i < S_SIZE; i += 1) {
-    colors.push(`hsl(${context.h} ${i}% ${L_SIZE - lineIndex - 1}%)`)
+    if (i % 5 === 0) {
+      colors.push(`hsl(${pointColor.h} ${i * 10}% ${L_SIZE - lineIndex - 1}%)`);
+    }
   }
-
   return colors;
 }
 
@@ -19,7 +21,7 @@ const getBarColor = function () {
 }
 
 export const lineStyle = function ({context, lineIndex}) {
-  const lineColor = getLineColor({context, lineIndex}).join(',');
+  const lineColor = getLineColor(lineIndex).join(',');
   return {
     width: `${context.panelWidth}px`,
     height: `${context.panelHeight / L_SIZE}px`,
@@ -35,7 +37,9 @@ export const panelStyle = function (context) {
   return {
     width: `${context.panelWidth}px`,
     height: `${context.panelHeight}px`,
-    position: 'relative'
+    position: 'relative',
+    boxSizing: 'content-box',
+    overflow: 'visible'
   }
 }
 
@@ -52,11 +56,18 @@ export const barWrapStyle = function (context) {
   return {
     width: `${context.barWidth}px`,
     height: `${context.barHeight}px`,
-    position: 'relative'
+    position: 'relative',
+    boxSizing: 'content-box',
+    overflow: 'visible'
   }
 }
 
 export const panelPointStyle = function (context) {
+  const pointPosition = panelColorToPosition({
+    context,
+    s: pointColor.s,
+    l: pointColor.l
+  });
   return {
     width: `${context.panelPointRadius * 2}px`,
     height: `${context.panelPointRadius * 2}px`,
@@ -67,12 +78,16 @@ export const panelPointStyle = function (context) {
     cursor: 'pointer',
     boxSizing: 'border-box',
     position: 'absolute',
-    top: '0',
-    left: '0'
+    top: `${pointPosition.top}px`,
+    left: `${pointPosition.left}px`
   }
 }
 
 export const barPointStyle = function (context) {
+  const barPointPosition = barColorToPosition({
+    context,
+    h: pointColor.h
+  });
   return {
     width: `${getBarPointRadius(context) * 2}px`,
     height: `${getBarPointRadius(context) * 2}px`,
@@ -81,7 +96,7 @@ export const barPointStyle = function (context) {
     boxShadow: '0 0 2px 0 #000',
     cursor: 'pointer',
     position: 'absolute',
-    top: '-3px',
-    left: '-3px'
+    top: `${barPointPosition.top}px`,
+    left: `${barPointPosition.left}px`
   }
 }

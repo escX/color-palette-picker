@@ -1,8 +1,9 @@
-import {L_SIZE} from './utils';
+import {L_SIZE, RANGE_TYPE_BAR, RANGE_TYPE_PANEL, BAR_POINT_EXCEED, getBarPointRadius, createdElement, setPointPosition, setPointColor} from './utils';
 import {lineStyle, panelStyle, barStyle, barWrapStyle, panelPointStyle, barPointStyle} from './style';
-
-const RANGE_TYPE_BAR = 'bar';
-const RANGE_TYPE_PANEL = 'panel';
+import Drag from './drag';
+import {panelAxisToPosition, barAxisToPosition} from './axis2position';
+import {panelPositionToColor, barPositionToColor} from './position2color';
+import {barAxisToColor, panelAxisToColor} from './axis2color';
 
 const createElement = function ({nodeType, style, attribute}) {
   const element = document.createElement(nodeType);
@@ -53,6 +54,7 @@ const createPanel = function (context) {
   });
 
   const panelPoint = createPanelPoint(context);
+  createdElement.panelPoint = panelPoint;
 
   for (let lineIndex = 0; lineIndex < L_SIZE; lineIndex += 1) {
     const line = createLine({
@@ -64,6 +66,44 @@ const createPanel = function (context) {
 
   panel.appendChild(panelPoint);
 
+  new Drag({
+    draggedElement: panelPoint,
+    scopeElement: panel,
+    allowExceed: {
+      x: context.panelPointRadius,
+      y: context.panelPointRadius
+    },
+    clickPosition({x, y}) {
+      const {top, left} = panelAxisToPosition({context, x, y});
+      setPointPosition({
+        element: panelPoint,
+        top,
+        left
+      });
+
+      const color = panelAxisToColor({context, x, y});
+      setPointColor({
+        s: color.s,
+        l: color.l,
+        colorRange: context.colorRange
+      });
+    },
+    sliding({top, left}) {
+      setPointPosition({
+        element: panelPoint,
+        top,
+        left
+      });
+
+      const color = panelPositionToColor({context, top, left});
+      setPointColor({
+        s: color.s,
+        l: color.l,
+        colorRange: context.colorRange
+      });
+    }
+  });
+
   return panel;
 }
 
@@ -74,6 +114,41 @@ const createBar = function (context) {
   });
 
   const barPoint = createBarPoint(context);
+  createdElement.barPoint = barPoint;
+
+  new Drag({
+    draggedElement: barPoint,
+    scopeElement: bar,
+    allowExceed: {
+      x: context.barHorizontal ? getBarPointRadius(context) : BAR_POINT_EXCEED / 2,
+      y: context.barHorizontal ? BAR_POINT_EXCEED / 2 : getBarPointRadius(context)
+    },
+    clickPosition({x, y}) {
+      const {top, left} = barAxisToPosition({context, x, y});
+      setPointPosition({
+        element: barPoint,
+        top,
+        left
+      });
+
+      setPointColor({
+        h: barAxisToColor({context, x, y}).h,
+        colorRange: context.colorRange
+      });
+    },
+    sliding({top, left}) {
+      setPointPosition({
+        element: barPoint,
+        top,
+        left
+      });
+
+      setPointColor({
+        h: barPositionToColor({context, top, left}).h,
+        colorRange: context.colorRange
+      });
+    }
+  });
 
   const barWrap = createElement({
     nodeType: 'div',
@@ -89,18 +164,14 @@ const createBar = function (context) {
   return barWrap;
 }
 
-const createRange = function ({context, type}) {
+export default function ({context, type}) {
   if (type === RANGE_TYPE_BAR) {
-    return createBar(context);
+    createdElement.bar = createBar(context);
+    return createdElement.bar;
   } else if (type === RANGE_TYPE_PANEL) {
-    return createPanel(context);
+    createdElement.panel = createPanel(context);
+    return createdElement.panel;
   }
 
   return false;
-}
-
-export default function (type) {
-  const context = this;
-
-  return createRange({context, type});
 }

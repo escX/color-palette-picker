@@ -1,18 +1,42 @@
 import Palette from '../../src/index';
 
 const instance = new Palette({
-  hsl: {
-    h: 279,
-    s: 50,
-    l: 50
-  },
-  barWidth: 190,
-  barHeight: 20,
-  barHorizontal: true
+  colorRange(color) {
+    for (let i in color) {
+      const input = document.getElementById('color_' + i);
+      if (input) {
+        input.value = color[i];
+      }
+    }
+  }
 });
-
 const panel = instance.create('panel');
 const bar = instance.create('bar');
 
-palette.appendChild(panel)
-palette.appendChild(bar)
+document.getElementById('palette').prepend(bar);
+document.getElementById('palette').prepend(panel);
+
+export const colorChange = function (target) {
+  const type = target.dataset.type;
+  const value = target.value;
+  switch (type) {
+    case 'h':
+      if (Number(value) > 360) {
+        target.value = 360;
+      } else if (Number(value) < 0) {
+        target.value = 0;
+      }
+      break;
+
+    default:
+      if (Number(value) > 100) {
+        target.value = 100;
+      } else if (Number(value) < 0) {
+        target.value = 0;
+      }
+  }
+
+  const color = {};
+  color[type] = value;
+  instance.set(color);
+}

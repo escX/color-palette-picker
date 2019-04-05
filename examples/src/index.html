@@ -5,8 +5,61 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>example</title>
+  <style>
+    #palette {
+      width: 300px;
+      padding-bottom: 20px;
+      box-shadow: 0 0 5px 0 #000;
+    }
+    .bar-range {
+      margin: 20px auto;
+    }
+    #form {
+      padding: 0 50px;
+    }
+    #form .formItem {
+      margin: 10px 0;
+    }
+    #form label {
+      width: 30px;
+      display: inline-block;
+    }
+  </style>
 </head>
 <body>
-  <div id="palette"></div>
+  <div id="palette">
+    <div id="form">
+      <div class="formItem">
+        <label for="color_h">H:</label>
+        <input
+          type="number"
+          name="color_h"
+          id="color_h"
+          value="0"
+          data-type="h"
+          oninput="utils.colorChange(this)">
+      </div>
+      <div class="formItem">
+        <label for="color_s">S:</label>
+        <input
+          type="number"
+          name="color_s"
+          id="color_s"
+          value="100"
+          data-type="s"
+          oninput="utils.colorChange(this)">
+      </div>
+      <div class="formItem">
+        <label for="color_l">L:</label>
+        <input
+          type="number"
+          name="color_l"
+          id="color_l"
+          value="50"
+          data-type="l"
+          oninput="utils.colorChange(this)">
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -9,6 +9,8 @@ module.exports = merge(common, {
   entry: './examples/src/index.js',
   output: {
     filename: 'main.js',
+    libraryTarget: "window",
+    library: 'utils',
     path: path.resolve(__dirname, 'examples')
   },
   plugins: [

@@ -1,14 +1,21 @@
-import {getBarPointRadius} from './utils';
+import {BAR_POINT_EXCEED, getBarPointRadius} from './utils';
 
-export const getBarPosition = function ({context, x, y}) {
+export const barAxisToPosition = function ({context, x, y}) {
   const barPointRadius = getBarPointRadius(context);
-  return {
-    top: y - barPointRadius,
-    left: x - barPointRadius
+  if (context.barHorizontal) {
+    return {
+      top: -BAR_POINT_EXCEED / 2,
+      left: x - barPointRadius
+    }
+  } else {
+    return {
+      top: y - barPointRadius,
+      left: -BAR_POINT_EXCEED / 2
+    }
   }
 }
 
-export const getPanelPosition = function ({context, x, y}) {
+export const panelAxisToPosition = function ({context, x, y}) {
   return {
     top: y - context.panelPointRadius,
     left: x - context.panelPointRadius
