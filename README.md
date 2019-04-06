@@ -1,7 +1,5 @@
 # color-palette-picker
-A flexible color picker.
-
-![](./example.gif)
+A flexible color picker: [DEMO](https://escx.github.io/palette/)
 
 ## Install
 ```shell
