@@ -1,25 +1,25 @@
-# palette
-`palette` is a flexible color picker.
+# color-palette-picker
+A flexible color picker.
 
 ![](./example.gif)
 
 ## Install
 ```shell
-npm install palette
+npm install color-palette-picker
 ```
 
 ## Usage
 ```js
 // es5 import
-import Palette from 'palette';
+import ColorPalettePicker from 'color-palette-picker';
 
 // or by script
-<script src="path/to/palette.js"></script>
+<script src="path/to/color-palette-picker.js"></script>
 ```
 
 ```js
 // instantiation
-const instance = new Palette(options);
+const instance = new ColorPalettePicker(options);
 
 // create panel element and bar element of palette
 const panel = instance.create('panel');

@@ -1,8 +1,8 @@
 {
-  "name": "palette",
+  "name": "color-palette-picker",
   "version": "1.1.0",
   "description": "color palette picker",
-  "main": "dist/palette.js",
+  "main": "dist/color-palette-picker.js",
   "scripts": {
     "dev": "webpack-dev-server --open --config webpack.dev.js",
     "build:ex": "webpack --config webpack.dev.js",
