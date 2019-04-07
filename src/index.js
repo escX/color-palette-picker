@@ -1,3 +1,3 @@
-import Palette from './palette';
+import ColorPalettePicker from './palette';
 
-export default Palette;
+export default ColorPalettePicker;

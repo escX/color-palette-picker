@@ -1,7 +1,7 @@
 {
   "name": "color-palette-picker",
-  "version": "1.1.1",
-  "description": "color palette picker",
+  "version": "1.1.2",
+  "description": "A flexible color palette picker",
   "main": "dist/color-palette-picker.js",
   "scripts": {
     "dev": "webpack-dev-server --open --config webpack.dev.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/escX/palette.git"
+    "url": "git+https://github.com/escX/color-palette-picker.git"
   },
   "keywords": [
     "palette",
@@ -21,9 +21,9 @@
   "author": "escX",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/escX/palette/issues"
+    "url": "https://github.com/escX/color-palette-picker/issues"
   },
-  "homepage": "https://github.com/escX/palette#readme",
+  "homepage": "https://escx.github.io/color-palette-picker/",
   "devDependencies": {
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.2",

@@ -2,7 +2,7 @@ import createRange from './create';
 import {createdElement, pointColor, setPointColor, setPointPosition} from './utils';
 import {barColorToPosition, panelColorToPosition} from './color2position';
 
-export default class Palette {
+export default class ColorPalettePicker {
   constructor ({
     hsl = {h: 0, s: 100, l: 50},
     panelName = 'panel-range',
