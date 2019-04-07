@@ -1,6 +1,6 @@
-import Palette from '../../src/index';
+import ColorPalettePicker from '../../src/index';
 
-const instance = new Palette({
+const instance = new ColorPalettePicker({
   colorRange(color) {
     for (let i in color) {
       const input = document.getElementById('color_' + i);
