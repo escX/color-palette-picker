@@ -4,12 +4,91 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>color-palette-picker</title>
+  <title></title>
   <style>
-    #palette {
+    html {
+      height: 100%;
+    }
+
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #111;
+      background-color: #fcfcfc;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    *,
+    ::before,
+    ::after {
+      box-sizing: border-box;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    a {
+      background-color: transparent;
+      text-decoration: none;
+      color: #0074d9;
+    }
+
+    a:focus,
+    a:hover {
+      color: #0059a6;
+    }
+
+    a:active,
+    a:hover {
+      outline: 0;
+    }
+
+    pre {
+      border-radius: 3px;
+      font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+      font-size: 85%;
+      line-height: 1.45;
+      overflow: auto;
+      padding: 16px;
+      margin: 0;
+      word-break: normal;
+    }
+
+    .main {
+      width: 560px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding: 10px 0 30px;
+    }
+
+    .title {
+      color: #333;
+    }
+
+    .desc {
+      color: #999;
+      word-break: break-word;
+    }
+
+    .repository {
+      display: block;
+      margin-top: 15px;
+    }
+  </style>
+  <style>
+    #app {
       width: 300px;
       padding-bottom: 20px;
       box-shadow: 0 0 5px 0 #000;
+      margin: 0 auto;
     }
     .bar-range {
       margin: 20px auto;
@@ -27,37 +106,26 @@
   </style>
 </head>
 <body>
-  <div id="palette">
-    <div id="form">
-      <div class="formItem">
-        <label for="color_h">H:</label>
-        <input
-          type="number"
-          name="color_h"
-          id="color_h"
-          value="0"
-          data-type="h"
-          oninput="utils.colorChange(this)">
-      </div>
-      <div class="formItem">
-        <label for="color_s">S:</label>
-        <input
-          type="number"
-          name="color_s"
-          id="color_s"
-          value="100"
-          data-type="s"
-          oninput="utils.colorChange(this)">
-      </div>
-      <div class="formItem">
-        <label for="color_l">L:</label>
-        <input
-          type="number"
-          name="color_l"
-          id="color_l"
-          value="50"
-          data-type="l"
-          oninput="utils.colorChange(this)">
+  <div class="main">
+    <div class="header">
+      <h1 class="title"><%= htmlWebpackPlugin.options.title %></h1>
+      <p class="desc"><%= htmlWebpackPlugin.options.desc %></p>
+      <a class="repository" href="<%= htmlWebpackPlugin.options.repository %>">Source on GitHub</a>
+    </div>
+    <div id="app">
+      <div id="form">
+        <div class="formItem">
+          <label for="color_h">H:</label>
+          <input type="number" name="color_h" id="color_h" value="0" data-type="h" oninput="utils.colorChange(this)">
+        </div>
+        <div class="formItem">
+          <label for="color_s">S:</label>
+          <input type="number" name="color_s" id="color_s" value="100" data-type="s" oninput="utils.colorChange(this)">
+        </div>
+        <div class="formItem">
+          <label for="color_l">L:</label>
+          <input type="number" name="color_l" id="color_l" value="50" data-type="l" oninput="utils.colorChange(this)">
+        </div>
       </div>
     </div>
   </div>

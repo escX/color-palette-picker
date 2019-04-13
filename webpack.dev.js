@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
+const {name, description} = require('./package');
 
 module.exports = merge(common, {
   mode: 'development',
@@ -18,8 +19,11 @@ module.exports = merge(common, {
       cleanOnceBeforeBuildPatterns: ['*', '!src']
     }),
     new HtmlWebpackPlugin({
+      title: name,
+      desc: description,
+      repository: `https://github.com/escX/${name}.git`,
       template: './examples/src/index.html',
-      title: 'template'
+      favicon: './examples/src/favicon.ico'
     })
   ]
 });
