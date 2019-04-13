@@ -13,8 +13,8 @@ const instance = new ColorPalettePicker({
 const panel = instance.create('panel');
 const bar = instance.create('bar');
 
-document.getElementById('palette').prepend(bar);
-document.getElementById('palette').prepend(panel);
+document.getElementById('app').prepend(bar);
+document.getElementById('app').prepend(panel);
 
 export const colorChange = function (target) {
   const type = target.dataset.type;
